@@ -34,7 +34,7 @@ export default class ReactTable extends Methods(Lifecycle(Component)) {
     this.resizeColumnMoving = this.resizeColumnMoving.bind(this)
 
     this.state = {
-      page: props.defaultPage,
+      page: 0,
       pageSize: props.defaultPageSize,
       sorted: props.defaultSorted,
       expanded: props.defaultExpanded,
@@ -125,7 +125,7 @@ export default class ReactTable extends Methods(Lifecycle(Component)) {
       // Data model
       resolvedData,
       allVisibleColumns,
-      headerGroups,
+      headerGroupLayers,
       hasHeaderGroups,
       // Sorted Data
       sortedData,
@@ -272,13 +272,17 @@ export default class ReactTable extends Methods(Lifecycle(Component)) {
           }}
           {...theadGroupProps.rest}
         >
-          <TrComponent
-            className={theadGroupTrProps.className}
-            style={theadGroupTrProps.style}
-            {...theadGroupTrProps.rest}
-          >
-            {headerGroups.map(makeHeaderGroup)}
-          </TrComponent>
+          {
+            headerGroupLayers.map(headerGroups => (
+              <TrComponent
+                className={theadGroupTrProps.className}
+                style={theadGroupTrProps.style}
+                {...theadGroupTrProps.rest}
+              >
+                {headerGroups.map(makeHeaderGroup)}
+              </TrComponent>
+            ))
+          }
         </TheadComponent>
       )
     }
@@ -708,7 +712,7 @@ export default class ReactTable extends Methods(Lifecycle(Component)) {
       const trGroupProps = getTrGroupProps(finalState, undefined, undefined, this)
       const trProps = _.splitProps(getTrProps(finalState, undefined, undefined, this))
       return (
-        <TrGroupComponent key={`pad-${i}`} {...trGroupProps}>
+        <TrGroupComponent key={i} {...trGroupProps}>
           <TrComponent
             className={classnames(
               '-padRow',
