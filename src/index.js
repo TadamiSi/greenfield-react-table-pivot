@@ -273,8 +273,9 @@ export default class ReactTable extends Methods(Lifecycle(Component)) {
           {...theadGroupProps.rest}
         >
           {
-            headerGroupLayers.map(headerGroups => (
+            headerGroupLayers.map((headerGroups, index) => (
               <TrComponent
+                key={index}
                 className={theadGroupTrProps.className}
                 style={theadGroupTrProps.style}
                 {...theadGroupTrProps.rest}
