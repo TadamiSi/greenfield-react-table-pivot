@@ -3141,10 +3141,11 @@ var ReactTable = function (_Methods) {
               minWidth: rowMinWidth + 'px'
             })
           }, theadGroupProps.rest),
-          headerGroupLayers.map(function (headerGroups) {
+          headerGroupLayers.map(function (headerGroups, index) {
             return React__default.createElement(
               TrComponent,
               _extends({
+                key: index,
                 className: theadGroupTrProps.className,
                 style: theadGroupTrProps.style
               }, theadGroupTrProps.rest),
